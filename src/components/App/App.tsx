@@ -42,14 +42,13 @@ function App() {
     setMovie(movieSelect);
   };
 
-  const onClose = () => {
+  const onclose = () => {
     setMovie(null);
   };
 
   return (
     <>
       <Toaster />
-
       <SearchBar onSubmit={onSubmit} />
 
       {isLoading ? (
@@ -66,7 +65,7 @@ function App() {
       {movie && (
         <MovieModal
           movie={movie}
-          onClose={onClose}
+          onClose={onclose}
         />
       )}
     </>
