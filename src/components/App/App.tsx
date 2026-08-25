@@ -17,10 +17,14 @@ function App() {
 
   const onSubmit = (query: string) => {
     async function render() {
+      setIsLoading(true);
+      setIsError(false);
+      setMovies([]);
+
       try {
-        setIsLoading(true);
         const data = await fetchMovies(query);
         setMovies(data);
+
         if (data.length === 0) {
           toast.error("No movies found for your request.");
         }
@@ -30,18 +34,24 @@ function App() {
         setIsLoading(false);
       }
     }
+
     render();
   };
+
   const onSelect = (movieSelect: Movie) => {
     setMovie(movieSelect);
   };
-  const onclose = () => {
+
+  const onClose = () => {
     setMovie(null);
   };
+
   return (
     <>
       <Toaster />
+
       <SearchBar onSubmit={onSubmit} />
+
       {isLoading ? (
         <Loader />
       ) : (
@@ -50,11 +60,13 @@ function App() {
           movies={movies}
         />
       )}
+
       {isError && <ErrorMessage />}
+
       {movie && (
         <MovieModal
           movie={movie}
-          onClose={onclose}
+          onClose={onClose}
         />
       )}
     </>
